@@ -18,6 +18,7 @@ def register_user_routes(app):
             result = user.serialize()
             return jsonify(result), 201
 
+
     @app.route("/users/<int:user_id>", methods=["GET", "DELETE"])
     def user_item(user_id):
         user = db.session.get(User, user_id)
@@ -31,6 +32,7 @@ def register_user_routes(app):
             db.session.commit()
             return "", 204
 
+
     @app.route("/users/<int:user_id>/posts", methods=["GET"])
     def user_posts(user_id):
         posts = db.session.scalars(
@@ -38,6 +40,7 @@ def register_user_routes(app):
         ).all()
         result = [p.serialize() for p in posts]
         return jsonify(result)
+
 
     @app.route("/followers", methods=["POST", "DELETE"])
     def followers_collection():
@@ -57,3 +60,4 @@ def register_user_routes(app):
             db.session.delete(follower)
             db.session.commit()
             return "", 204
+
